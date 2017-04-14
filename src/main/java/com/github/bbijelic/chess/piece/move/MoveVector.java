@@ -14,28 +14,12 @@ public class MoveVector {
      * 
      * @param rankVector the rank vector
      * @param fileVector the file vector
-     * @param moveType move type
      */
-    public MoveVector(final int rankVector, final int fileVector, MoveType moveType) {            
+    public MoveVector(final int rankVector, final int fileVector) {            
         this.rankVector = rankVector;
         this.fileVector = fileVector;
-        this.moveType = moveType;
     }
-    
-    /**
-     * Move type. Used to validate move
-     */
-    private MoveType moveType;
-    
-    /**
-     * Returns move type
-     * 
-     * @return the move type
-     */
-    public MoveType getMoveType() {
-        return moveType;
-    }
-    
+        
     /**
      * Rank vector
      */
@@ -83,8 +67,6 @@ public class MoveVector {
         builder.append(rankVector);
         builder.append(", fileVector=");
         builder.append(fileVector);
-        builder.append(", moveType=");
-        builder.append(moveType);
         builder.append("]");
         return builder.toString();
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.move.MoveType;
 import com.github.bbijelic.chess.piece.move.MoveVector;
+import com.github.bbijelic.chess.piece.move.MoveVectorDirection;
 
 /**
  * Knight piece
@@ -18,16 +19,39 @@ public class Knight extends Piece {
     /**
      * Move vectors for the knight
      */
-    public static List<MoveVector> MOVE_VECTORS = new ArrayList<MoveVector>(){
+    public static List<MoveVectorDirection> MOVE_VECTORS = new ArrayList<MoveVectorDirection>(){
         {
-            add(new MoveVector(-2, 1, MoveType.NORMAL));
-            add(new MoveVector(-1, 2, MoveType.NORMAL));
-            add(new MoveVector(1, 2, MoveType.NORMAL));
-            add(new MoveVector(2, 1, MoveType.NORMAL));
-            add(new MoveVector(2, -1, MoveType.NORMAL));
-            add(new MoveVector(1, -2, MoveType.NORMAL));
-            add(new MoveVector(-1, -2, MoveType.NORMAL));
-            add(new MoveVector(-2, -1, MoveType.NORMAL));
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-2, 1));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, 2));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(1, 2));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(2, 1));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(2, -1));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(1, -2));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, -2));
+            }}, MoveType.NORMAL));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-2, -1));
+            }}, MoveType.NORMAL));
         }
     };
     

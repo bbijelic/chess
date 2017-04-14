@@ -2,13 +2,15 @@ package com.github.bbijelic.chess.board;
 
 import java.util.Objects;
 
+import com.github.bbijelic.chess.piece.move.MoveVector;
+
 /**
  * Board position
  * 
  * @author Bojan Bijelić
  */
 public class BoardPosition {
-    
+        
     /**
      * Constructor
      * 
@@ -46,6 +48,26 @@ public class BoardPosition {
      */
     public int getFile() {
         return file;
+    }
+    
+    /**
+     * Applies move vector to the board position and returns new board position
+     * 
+     * @return the board position with applied move vector
+     */
+    public BoardPosition applyMoveVector(final MoveVector moveVector){
+        return new BoardPosition(
+            this.rank + moveVector.getRankVector(), 
+            this.file + moveVector.getFileVector());
+    }
+    
+    /**
+     * Validates if board position is inside board boundaries
+     * 
+     * @return true if valid, false otherwise
+     */
+    public boolean isValid(){
+        return (rank >= 0 && rank <= 7 && file >= 0 && file <=7 ) ? true : false;
     }
     
     @Override

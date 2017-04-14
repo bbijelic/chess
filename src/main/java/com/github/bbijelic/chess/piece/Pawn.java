@@ -6,6 +6,7 @@ import java.util.List;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.move.MoveType;
 import com.github.bbijelic.chess.piece.move.MoveVector;
+import com.github.bbijelic.chess.piece.move.MoveVectorDirection;
 
 /**
  * Pawn
@@ -18,14 +19,31 @@ public class Pawn extends Piece {
     /**
      * Move vectors for the pawn
      */
-    public static List<MoveVector> MOVE_VECTORS = new ArrayList<MoveVector>(){
+    public static List<MoveVectorDirection> MOVE_VECTORS = new ArrayList<MoveVectorDirection>(){
         {
-            add(new MoveVector(-1, 0, MoveType.PAWN_SINGLE_STEP_MOVE));
-            add(new MoveVector(-2, 0, MoveType.PAWN_DOUBLE_STEP_MOVE));
-            add(new MoveVector( 1, -1, MoveType.PAWN_EN_PASSANT));
-            add(new MoveVector( 1, 1, MoveType.PAWN_EN_PASSANT));
-            add(new MoveVector(-1, -1, MoveType.PAWN_CAPTURE));
-            add(new MoveVector(-1, 1, MoveType.PAWN_CAPTURE));
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, 0));
+            }}, MoveType.PAWN_SINGLE_STEP_MOVE));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-2, 0));
+            }}, MoveType.PAWN_DOUBLE_STEP_MOVE));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector( 1, -1));
+            }}, MoveType.PAWN_EN_PASSANT));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector( 1, 1));
+            }}, MoveType.PAWN_EN_PASSANT));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, -1));
+            }}, MoveType.PAWN_CAPTURE));
+            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, 1));
+            }}, MoveType.PAWN_CAPTURE));
         }
     };
     

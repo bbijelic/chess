@@ -1,6 +1,8 @@
 package com.github.bbijelic.chess.piece.move;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -100,8 +102,15 @@ public class MoveHandler implements MoveHandlerInterface {
         LOGGER.debug("ENTER: handleRookPiece()");
 
         // Initialize playable positions set
-        Set<BoardPosition> playablePositions = new HashSet<BoardPosition>();
+        final Set<BoardPosition> playablePositions = new HashSet<BoardPosition>();
 
+        for(MoveVectorDirection moveVectorDirection : Rook.MOVE_VECTORS){
+            // Normal move type
+            if(moveVectorDirection.getMoveType().equals(MoveType.NORMAL)){
+                playablePositions.addAll(handleNormalMoveType(
+                    board, boardPosition, piece, moveVectorDirection.getMoveVectors()));                
+            }
+        }
 
         LOGGER.debug("LEAVE: handleRookPiece(); returning: {}", 
             playablePositions.toString());
@@ -152,6 +161,13 @@ public class MoveHandler implements MoveHandlerInterface {
         // Initialize playable positions set
         Set<BoardPosition> playablePositions = new HashSet<BoardPosition>();
 
+        for(MoveVectorDirection moveVectorDirection : Knight.MOVE_VECTORS){
+            // Normal move type
+            if(moveVectorDirection.getMoveType().equals(MoveType.NORMAL)){
+                playablePositions.addAll(handleNormalMoveType(
+                    board, boardPosition, piece, moveVectorDirection.getMoveVectors()));                
+            }
+        }
 
         LOGGER.debug("LEAVE: handleKnightPiece(); returning: {}", 
             playablePositions.toString());
@@ -177,6 +193,13 @@ public class MoveHandler implements MoveHandlerInterface {
         // Initialize playable positions set
         Set<BoardPosition> playablePositions = new HashSet<BoardPosition>();
 
+        for(MoveVectorDirection moveVectorDirection : Bishop.MOVE_VECTORS){
+            // Normal move type
+            if(moveVectorDirection.getMoveType().equals(MoveType.NORMAL)){
+                playablePositions.addAll(handleNormalMoveType(
+                    board, boardPosition, piece, moveVectorDirection.getMoveVectors()));                
+            }
+        }
 
         LOGGER.debug("LEAVE: handleBishopPiece(); returning: {}", 
             playablePositions.toString());
@@ -202,6 +225,13 @@ public class MoveHandler implements MoveHandlerInterface {
         // Initialize playable positions set
         Set<BoardPosition> playablePositions = new HashSet<BoardPosition>();
 
+        for(MoveVectorDirection moveVectorDirection : Queen.MOVE_VECTORS){
+            // Normal move type
+            if(moveVectorDirection.getMoveType().equals(MoveType.NORMAL)){
+                playablePositions.addAll(handleNormalMoveType(
+                    board, boardPosition, piece, moveVectorDirection.getMoveVectors()));                
+            }
+        }
 
         LOGGER.debug("LEAVE: handleQueenPiece(); returning: {}", 
             playablePositions.toString());
@@ -230,6 +260,48 @@ public class MoveHandler implements MoveHandlerInterface {
 
         LOGGER.debug("LEAVE: handleKingPiece(); returning: {}", 
             playablePositions.toString());
+        return playablePositions;
+    }
+    
+    private Set<BoardPosition> handleNormalMoveType(
+        final Board board, final BoardPosition boardPosition, 
+        final Piece piece, final List<MoveVector> moveVectors){
+        
+        // Initialize playable positions set
+        Set<BoardPosition> playablePositions = new HashSet<BoardPosition>();
+        
+        for(MoveVector moveVector : moveVectors){
+            // Apply move vector to the board position
+            BoardPosition boardPositionVectored = boardPosition.applyMoveVector(moveVector);
+            
+            // When true, means board position is within boudaries of the board
+            if(boardPositionVectored.isValid()){
+                
+                try {
+                    // Check if board position is occupied
+                    Optional<Piece> pieceOptional = board.getSquare(boardPositionVectored).getPiece();
+                    if(pieceOptional.isPresent()){
+                        
+                        // Check if piece is friend or foe
+                        if(!pieceOptional.get().getColor().equals(piece.getColor())){
+                            // Square is occupied by opponents piece, it is playable
+                            playablePositions.add(boardPositionVectored);
+                        }
+                        
+                        // Piece breaks this direction
+                        break;
+                        
+                    } else {
+                        // Square is not occupied, it is playable
+                        playablePositions.add(boardPositionVectored);
+                    }
+                    
+                } catch (BoardException be){
+                    break;
+                }
+            }
+        }
+        
         return playablePositions;
     }
 }

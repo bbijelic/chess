@@ -93,7 +93,7 @@ public class Board {
         if(this.squares.containsKey(boardPosition)) {
             return squares.get(boardPosition);
         } else {
-            // Square not initialize
+            // Square not initialized
             throw new BoardException("Square not initialized at board position: " + boardPosition.toString());
         }
     }

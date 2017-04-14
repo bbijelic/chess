@@ -6,6 +6,7 @@ import java.util.List;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.move.MoveType;
 import com.github.bbijelic.chess.piece.move.MoveVector;
+import com.github.bbijelic.chess.piece.move.MoveVectorDirection;
 
 /**
  * Bishop piece
@@ -18,44 +19,51 @@ public class Bishop extends Piece {
     /**
      * Move vectors for the bishop
      */
-    public static List<MoveVector> MOVE_VECTORS = new ArrayList<MoveVector>(){
+    public static List<MoveVectorDirection> MOVE_VECTORS = new ArrayList<MoveVectorDirection>(){
         {
             // Down Right
-            add(new MoveVector(1, 1, MoveType.NORMAL));
-            add(new MoveVector(2, 2, MoveType.NORMAL));
-            add(new MoveVector(3, 3, MoveType.NORMAL));
-            add(new MoveVector(4, 4, MoveType.NORMAL));
-            add(new MoveVector(5, 5, MoveType.NORMAL));
-            add(new MoveVector(6, 6, MoveType.NORMAL));
-            add(new MoveVector(7, 7, MoveType.NORMAL));
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(1, 1));
+                add(new MoveVector(2, 2));
+                add(new MoveVector(3, 3));
+                add(new MoveVector(4, 4));
+                add(new MoveVector(5, 5));
+                add(new MoveVector(6, 6));
+                add(new MoveVector(7, 7));                
+            }}, MoveType.NORMAL));
             
             // Down Left
-            add(new MoveVector(1, -1, MoveType.NORMAL));
-            add(new MoveVector(2, -2, MoveType.NORMAL));
-            add(new MoveVector(3, -3, MoveType.NORMAL));
-            add(new MoveVector(4, -4, MoveType.NORMAL));
-            add(new MoveVector(5, -5, MoveType.NORMAL));
-            add(new MoveVector(6, -6, MoveType.NORMAL));
-            add(new MoveVector(7, -7, MoveType.NORMAL));
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(1, -1));
+                add(new MoveVector(2, -2));
+                add(new MoveVector(3, -3));
+                add(new MoveVector(4, -4));
+                add(new MoveVector(5, -5));
+                add(new MoveVector(6, -6));
+                add(new MoveVector(7, -7));
+            }}, MoveType.NORMAL));
             
             // Up Left
-            add(new MoveVector(-1, -1, MoveType.NORMAL));
-            add(new MoveVector(-2, -2, MoveType.NORMAL));
-            add(new MoveVector(-3, -3, MoveType.NORMAL));
-            add(new MoveVector(-4, -4, MoveType.NORMAL));
-            add(new MoveVector(-5, -5, MoveType.NORMAL));
-            add(new MoveVector(-6, -6, MoveType.NORMAL));
-            add(new MoveVector(-7, -7, MoveType.NORMAL));
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, -1));
+                add(new MoveVector(-2, -2));
+                add(new MoveVector(-3, -3));
+                add(new MoveVector(-4, -4));
+                add(new MoveVector(-5, -5));
+                add(new MoveVector(-6, -6));
+                add(new MoveVector(-7, -7));
+            }}, MoveType.NORMAL));
             
             // Up Right
-            add(new MoveVector(-1, 1, MoveType.NORMAL));
-            add(new MoveVector(-2, 2, MoveType.NORMAL));
-            add(new MoveVector(-3, 3, MoveType.NORMAL));
-            add(new MoveVector(-4, 4, MoveType.NORMAL));
-            add(new MoveVector(-5, 5, MoveType.NORMAL));
-            add(new MoveVector(-6, 6, MoveType.NORMAL));
-            add(new MoveVector(-7, 7, MoveType.NORMAL));
-            
+            add(new MoveVectorDirection(new ArrayList<MoveVector>(){{
+                add(new MoveVector(-1, 1));
+                add(new MoveVector(-2, 2));
+                add(new MoveVector(-3, 3));
+                add(new MoveVector(-4, 4));
+                add(new MoveVector(-5, 5));
+                add(new MoveVector(-6, 6));
+                add(new MoveVector(-7, 7));
+            }}, MoveType.NORMAL)); 
         }
     };
     
