@@ -1,5 +1,7 @@
 package com.github.bbijelic.chess.piece.move;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
@@ -11,9 +13,16 @@ import com.github.bbijelic.chess.board.BoardPosition;
 import com.github.bbijelic.chess.board.exception.BoardException;
 import com.github.bbijelic.chess.board.setup.BoardSetup;
 import com.github.bbijelic.chess.board.setup.NewMatchSetup;
+import com.github.bbijelic.chess.core.Color;
+import com.github.bbijelic.chess.piece.Knight;
+import com.github.bbijelic.chess.piece.Pawn;
+import com.github.bbijelic.chess.piece.Piece;
+import com.github.bbijelic.chess.piece.Rook;
 
 /**
- * Knight related move handling tests
+ * Knight related move handling tests.
+ * 
+ * <p>One can use https://www.chess.com/analysis-board-editor to prepare various setups via FEN</p>
  * 
  * @author Bojan Bijelić
  */
@@ -93,6 +102,170 @@ public class KnightMoveHandlerTest {
         assertTrue(playableBoardPositions.contains(new BoardPosition(2, 7)));
         assertTrue(playableBoardPositions.contains(new BoardPosition(2, 5)));
         
+    }
+    
+    /**
+     * Test knight setup
+     * FEN: 8/8/5p2/3N4/8/4P3/8/8 w - - 0 1
+     */
+    @Test
+    public void testKnightPositionsSetup1() throws BoardException {
+        
+        // Initialize board setup
+        BoardSetup boardSetup = new BoardSetup() {
+            
+            @Override
+            public Map<BoardPosition, Piece> setup() {
+                Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(3);
+                boardSetup.put(new BoardPosition("d5"), new Knight(Color.WHITE));
+                boardSetup.put(new BoardPosition("e3"), new Pawn(Color.WHITE));
+                boardSetup.put(new BoardPosition("f6"), new Pawn(Color.BLACK));
+                
+                return boardSetup;
+            }
+        };
+        
+        // Initialize Board
+        Board board = new Board(boardSetup);
+                
+        // Move handler instance
+        MoveHandlerInterface moveHandler = new MoveHandler();
+        
+        // Board position under test
+        BoardPosition whiteKnightD5 = new BoardPosition("d5");
+        
+        // Get playable board positions
+        Set<BoardPosition> playableBoardPositions = 
+            moveHandler.getPlayableBoardPositions(whiteKnightD5, board);
+        
+        // Assert position and size
+        assertEquals(7, playableBoardPositions.size());
+        assertTrue(playableBoardPositions.contains(new BoardPosition("b6")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("c7")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("e7")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("f6")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("f4")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("c3")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("b4")));
+        
+    }
+    
+    /**
+     * Test knight setup
+     * FEN: 8/8/8/8/7p/4P3/6N1/8 w - - 0 1
+     */
+    @Test
+    public void testKnightPositionsSetup2() throws BoardException {
+        
+        // Initialize board setup
+        BoardSetup boardSetup = new BoardSetup() {
+            
+            @Override
+            public Map<BoardPosition, Piece> setup() {
+                Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(3);
+                boardSetup.put(new BoardPosition("g2"), new Knight(Color.WHITE));
+                boardSetup.put(new BoardPosition("e3"), new Pawn(Color.WHITE));
+                boardSetup.put(new BoardPosition("h4"), new Pawn(Color.BLACK));
+                
+                return boardSetup;
+            }
+        };
+        
+        // Initialize Board
+        Board board = new Board(boardSetup);
+                
+        // Move handler instance
+        MoveHandlerInterface moveHandler = new MoveHandler();
+        
+        // Board position under test
+        BoardPosition whiteKnightG2 = new BoardPosition("g2");
+        
+        // Get playable board positions
+        Set<BoardPosition> playableBoardPositions = 
+            moveHandler.getPlayableBoardPositions(whiteKnightG2, board);
+        
+        // Assert position and size
+        assertEquals(3, playableBoardPositions.size());
+        assertTrue(playableBoardPositions.contains(new BoardPosition("e1")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("f4")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("h4")));
+    }
+    
+    /**
+     * Test knight setup
+     * FEN: N7/8/1r6/8/8/8/8/8 w - - 0 1
+     */
+    @Test
+    public void testKnightPositionsSetup3() throws BoardException {
+        
+        // Initialize board setup
+        BoardSetup boardSetup = new BoardSetup() {
+            
+            @Override
+            public Map<BoardPosition, Piece> setup() {
+                Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(2);
+                boardSetup.put(new BoardPosition("a8"), new Knight(Color.WHITE));
+                boardSetup.put(new BoardPosition("b6"), new Rook(Color.BLACK));
+                
+                return boardSetup;
+            }
+        };
+        
+        // Initialize Board
+        Board board = new Board(boardSetup);
+                
+        // Move handler instance
+        MoveHandlerInterface moveHandler = new MoveHandler();
+        
+        // Board position under test
+        BoardPosition knight = new BoardPosition("a8");
+        
+        // Get playable board positions
+        Set<BoardPosition> playableBoardPositions = 
+            moveHandler.getPlayableBoardPositions(knight, board);
+        
+        // Assert position and size
+        assertEquals(2, playableBoardPositions.size());
+        assertTrue(playableBoardPositions.contains(new BoardPosition("b6")));
+        assertTrue(playableBoardPositions.contains(new BoardPosition("c7")));
+    }
+    
+    /**
+     * Test knight setup
+     * FEN: N7/2P5/1P6/8/8/8/8/8 w - - 0 1
+     */
+    @Test
+    public void testKnightPositionsSetup4() throws BoardException {
+        
+        // Initialize board setup
+        BoardSetup boardSetup = new BoardSetup() {
+            
+            @Override
+            public Map<BoardPosition, Piece> setup() {
+                Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(3);
+                boardSetup.put(new BoardPosition("a8"), new Knight(Color.WHITE));
+                boardSetup.put(new BoardPosition("b6"), new Pawn(Color.WHITE));
+                boardSetup.put(new BoardPosition("c7"), new Pawn(Color.WHITE));
+                
+                return boardSetup;
+            }
+        };
+        
+        // Initialize Board
+        Board board = new Board(boardSetup);
+                
+        // Move handler instance
+        MoveHandlerInterface moveHandler = new MoveHandler();
+        
+        // Board position under test
+        BoardPosition knight = new BoardPosition("a8");
+        
+        // Get playable board positions
+        Set<BoardPosition> playableBoardPositions = 
+            moveHandler.getPlayableBoardPositions(knight, board);
+        
+        // Assert position and size
+        assertEquals(0, playableBoardPositions.size());
     }
     
 }
