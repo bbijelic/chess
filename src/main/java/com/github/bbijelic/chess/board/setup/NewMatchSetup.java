@@ -1,17 +1,21 @@
 package com.github.bbijelic.chess.board.setup;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.github.bbijelic.chess.board.BoardPosition;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.Piece;
 import com.github.bbijelic.chess.piece.PieceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * New Match Setup
  */
 public class NewMatchSetup implements BoardSetup {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewMatchSetup.class);
 
     @Override
     public Map<BoardPosition, Piece> setup() {
@@ -41,6 +45,10 @@ public class NewMatchSetup implements BoardSetup {
         pieceSetup.put(new BoardPosition(0, 4), new Piece(PieceType.KING, Color.BLACK));
         for (int file = 0; file < 8; file++)
             pieceSetup.put(new BoardPosition(1, file), new Piece(PieceType.PAWN, Color.BLACK));
+
+        pieceSetup.forEach(((boardPosition, piece) -> {
+            LOGGER.debug("Initialized piece {} on {}", piece, boardPosition);
+        }));
 
         return pieceSetup;
     }

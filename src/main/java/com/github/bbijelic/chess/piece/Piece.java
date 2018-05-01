@@ -59,14 +59,6 @@ public class Piece {
         // Rook move vectors
         MOVE_VECTORS.put(PieceType.ROOK, new ArrayList<MoveVectorDirection>() {
             {
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
-                    add(new MoveVector(0, -3));
-                }}, MoveType.KING_SIDE_CASTILING));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
-                    add(new MoveVector(0, 4));
-                }}, MoveType.QUEEN_SIDE_CASTLING));
-
                 // Left
                 add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, -1));
@@ -204,34 +196,13 @@ public class Piece {
             {
                 add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(-1, 0));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(-1, -1));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, 1));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(1, 1));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(1, 0));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(1, -1));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, -1));
-                }}, MoveType.KING_MOVE));
-
-                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
-                    add(new MoveVector(-1, -1));
+                    add(new MoveVector(-1, 1));
                 }}, MoveType.KING_MOVE));
 
                 add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
@@ -245,6 +216,7 @@ public class Piece {
         });
 
         // Queen move vectors
+        // Queens movement is combination of ROOK's and BISHOP's
         MOVE_VECTORS.put(PieceType.QUEEN, new ArrayList<MoveVectorDirection>() {
             {
                 addAll(MOVE_VECTORS.get(PieceType.ROOK));
