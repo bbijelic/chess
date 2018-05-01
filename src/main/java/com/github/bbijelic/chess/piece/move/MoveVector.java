@@ -1,5 +1,7 @@
 package com.github.bbijelic.chess.piece.move;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -8,34 +10,18 @@ import java.util.Objects;
  * <p>For example, MoveVector[0,-1] means that piece can move forward one square</p>
  */
 public class MoveVector {
-    
+
     /**
      * Constructor
      * 
      * @param rankVector the rank vector
      * @param fileVector the file vector
-     * @param moveType move type
      */
-    public MoveVector(final int rankVector, final int fileVector, MoveType moveType) {            
+    public MoveVector(final int rankVector, final int fileVector) {            
         this.rankVector = rankVector;
         this.fileVector = fileVector;
-        this.moveType = moveType;
     }
-    
-    /**
-     * Move type. Used to validate move
-     */
-    private MoveType moveType;
-    
-    /**
-     * Returns move type
-     * 
-     * @return the move type
-     */
-    public MoveType getMoveType() {
-        return moveType;
-    }
-    
+        
     /**
      * Rank vector
      */
@@ -71,21 +57,17 @@ public class MoveVector {
     public boolean equals(Object obj) {
         if(obj instanceof MoveVector){
             MoveVector other = (MoveVector)obj;
-            if(this.rankVector == other.getRankVector() && this.fileVector == other.getFileVector()) return true;
+            return this.rankVector == other.getRankVector() && this.fileVector == other.getFileVector();
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("MoveVector [rankVector=");
-        builder.append(rankVector);
-        builder.append(", fileVector=");
-        builder.append(fileVector);
-        builder.append(", moveType=");
-        builder.append(moveType);
-        builder.append("]");
-        return builder.toString();
+        final StringBuffer sb = new StringBuffer("MoveVector{");
+        sb.append("rankVector=").append(rankVector);
+        sb.append(", fileVector=").append(fileVector);
+        sb.append('}');
+        return sb.toString();
     }
 }
