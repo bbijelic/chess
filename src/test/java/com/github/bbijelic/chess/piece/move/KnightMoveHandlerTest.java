@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.github.bbijelic.chess.piece.PieceType;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,10 +15,7 @@ import com.github.bbijelic.chess.board.exception.BoardException;
 import com.github.bbijelic.chess.board.setup.BoardSetup;
 import com.github.bbijelic.chess.board.setup.NewMatchSetup;
 import com.github.bbijelic.chess.core.Color;
-import com.github.bbijelic.chess.piece.Knight;
-import com.github.bbijelic.chess.piece.Pawn;
 import com.github.bbijelic.chess.piece.Piece;
-import com.github.bbijelic.chess.piece.Rook;
 
 /**
  * Knight related move handling tests.
@@ -117,9 +115,9 @@ public class KnightMoveHandlerTest {
             @Override
             public Map<BoardPosition, Piece> setup() {
                 Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(3);
-                boardSetup.put(new BoardPosition("d5"), new Knight(Color.WHITE));
-                boardSetup.put(new BoardPosition("e3"), new Pawn(Color.WHITE));
-                boardSetup.put(new BoardPosition("f6"), new Pawn(Color.BLACK));
+                boardSetup.put(new BoardPosition("d5"), new Piece(PieceType.KNIGHT, Color.WHITE));
+                boardSetup.put(new BoardPosition("e3"), new Piece(PieceType.PAWN, Color.WHITE));
+                boardSetup.put(new BoardPosition("f6"), new Piece(PieceType.PAWN, Color.BLACK));
                 
                 return boardSetup;
             }
@@ -163,9 +161,9 @@ public class KnightMoveHandlerTest {
             @Override
             public Map<BoardPosition, Piece> setup() {
                 Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(3);
-                boardSetup.put(new BoardPosition("g2"), new Knight(Color.WHITE));
-                boardSetup.put(new BoardPosition("e3"), new Pawn(Color.WHITE));
-                boardSetup.put(new BoardPosition("h4"), new Pawn(Color.BLACK));
+                boardSetup.put(new BoardPosition("g2"), new Piece(PieceType.KNIGHT, Color.WHITE));
+                boardSetup.put(new BoardPosition("e3"), new Piece(PieceType.PAWN, Color.WHITE));
+                boardSetup.put(new BoardPosition("h4"), new Piece(PieceType.PAWN, Color.BLACK));
                 
                 return boardSetup;
             }
@@ -204,8 +202,8 @@ public class KnightMoveHandlerTest {
             @Override
             public Map<BoardPosition, Piece> setup() {
                 Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(2);
-                boardSetup.put(new BoardPosition("a8"), new Knight(Color.WHITE));
-                boardSetup.put(new BoardPosition("b6"), new Rook(Color.BLACK));
+                boardSetup.put(new BoardPosition("a8"), new Piece(PieceType.KNIGHT, Color.WHITE));
+                boardSetup.put(new BoardPosition("b6"), new Piece(PieceType.ROOK, Color.BLACK));
                 
                 return boardSetup;
             }
@@ -243,9 +241,9 @@ public class KnightMoveHandlerTest {
             @Override
             public Map<BoardPosition, Piece> setup() {
                 Map<BoardPosition, Piece> boardSetup = new HashMap<BoardPosition, Piece>(3);
-                boardSetup.put(new BoardPosition("a8"), new Knight(Color.WHITE));
-                boardSetup.put(new BoardPosition("b6"), new Pawn(Color.WHITE));
-                boardSetup.put(new BoardPosition("c7"), new Pawn(Color.WHITE));
+                boardSetup.put(new BoardPosition("a8"), new Piece(PieceType.KNIGHT, Color.WHITE));
+                boardSetup.put(new BoardPosition("b6"), new Piece(PieceType.PAWN, Color.WHITE));
+                boardSetup.put(new BoardPosition("c7"), new Piece(PieceType.PAWN, Color.WHITE));
                 
                 return boardSetup;
             }
