@@ -94,6 +94,7 @@ public class BoardPosition {
     /**
      * Applies move vector to the board position and returns new board position
      *
+     * @param moveVector the move vector
      * @return the board position with applied move vector
      */
     public BoardPosition applyMoveVector(
@@ -129,7 +130,7 @@ public class BoardPosition {
         try {
             squareName.append(FILE_LETTERS[file]);
             squareName.append(8 - rank);
-        } catch (final IndexOutOfBoundsException iofbe){
+        } catch (final IndexOutOfBoundsException iofbe) {
             squareName.append("xx");
         }
 
