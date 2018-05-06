@@ -2,6 +2,7 @@ package com.github.bbijelic.chess.board;
 
 import com.github.bbijelic.chess.board.exception.BoardException;
 import com.github.bbijelic.chess.board.setup.BoardSetup;
+import com.github.bbijelic.chess.board.setup.BoardSetupException;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.Piece;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class Board {
      * @param boardSetup the board setup
      * @throws BoardException
      */
-    public Board(BoardSetup boardSetup) throws BoardException {
+    public Board(BoardSetup boardSetup) throws BoardException{
         // Initializing the board
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
@@ -52,8 +53,17 @@ public class Board {
             }
         }
 
-        // Get the board setup
-        Map<BoardPosition, Piece> boardSetupMap = boardSetup.setup();
+        final Map<BoardPosition, Piece> boardSetupMap;
+
+        try {
+
+            // Get the board setup
+            boardSetupMap = boardSetup.setup();
+
+        } catch (final BoardSetupException bse) {
+            throw new BoardException(bse.getMessage(), bse);
+        }
+
         if (boardSetupMap == null) throw new BoardException("Board setup is null");
         if (boardSetupMap.isEmpty()) throw new BoardException("Board setup must contain at least one piece");
 
@@ -74,7 +84,7 @@ public class Board {
      * @return Square the square
      * @throws BoardException
      */
-    public Square getSquare(final int rank, final int file) throws BoardException {
+    public Square getSquare(final int rank, final int file) throws BoardException{
         return getSquare(new BoardPosition(rank, file));
     }
 
@@ -85,7 +95,7 @@ public class Board {
      * @return Square the square
      * @throws BoardException
      */
-    public Square getSquare(BoardPosition boardPosition) throws BoardException {
+    public Square getSquare(BoardPosition boardPosition) throws BoardException{
         // Return the square on the position
         if (this.squares.containsKey(boardPosition)) {
             return squares.get(boardPosition);
@@ -101,7 +111,7 @@ public class Board {
      * @param color the color of the pieces
      * @return the set of board positions occupied by a color
      */
-    public Set<BoardPosition> getBoardPositionsByPieceColor(final Color color) {
+    public Set<BoardPosition> getBoardPositionsByPieceColor(final Color color){
         // Set of board poisitions to return
         final Set<BoardPosition> boardPositions = new HashSet<>();
 
@@ -119,7 +129,7 @@ public class Board {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         StringBuilder builder = new StringBuilder();
         builder.append("Board [squares=");
         builder.append(squares);

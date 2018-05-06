@@ -2,7 +2,7 @@ package com.github.bbijelic.chess.board;
 
 import com.github.bbijelic.chess.board.exception.BoardException;
 import com.github.bbijelic.chess.board.setup.BoardSetup;
-import com.github.bbijelic.chess.board.setup.NewMatchSetup;
+import com.github.bbijelic.chess.board.setup.fen.FENBoardSetup;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.Piece;
 import org.junit.Test;
@@ -21,17 +21,22 @@ import static org.junit.Assert.assertTrue;
 public class BoardTest {
 
     @Test(expected = BoardException.class)
-    public void testBoardExceptionThrown() throws BoardException {
-        Board board = new Board(new NewMatchSetup());
+    public void testBoardExceptionThrown() throws BoardException{
+
+        // Board setup
+        final BoardSetup boardSetup = new FENBoardSetup("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
+        // Initialize boards
+        final Board board = new Board(boardSetup);
         board.getSquare(8, 8);
     }
 
     @Test(expected = BoardException.class)
-    public void testBoardNotInitialized() throws BoardException {
+    public void testBoardNotInitialized() throws BoardException{
         BoardSetup boardSetup = new BoardSetup() {
 
             @Override
-            public Map<BoardPosition, Piece> setup() {
+            public Map<BoardPosition, Piece> setup(){
                 return null;
             }
         };
@@ -39,9 +44,13 @@ public class BoardTest {
     }
 
     @Test
-    public void testBoardInitialization() throws BoardException {
+    public void testBoardInitialization() throws BoardException{
+
+        // Board setup
+        final BoardSetup boardSetup = new FENBoardSetup("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
         // Initialize board
-        Board board = new Board(new NewMatchSetup());
+        final Board board = new Board(boardSetup);
 
         assertEquals(Color.WHITE, board.getSquare(0, 0).getColor());
         assertTrue(board.getSquare(0, 0).getPiece().isPresent());
@@ -57,10 +66,10 @@ public class BoardTest {
     }
 
     @Test
-    public void testGetBoardPositionsByPieceColor() throws BoardException {
+    public void testGetBoardPositionsByPieceColor() throws BoardException{
 
         // Initialize board
-        final Board board = new Board(new NewMatchSetup());
+        final Board board = new Board(new FENBoardSetup("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
         // Get piece positions occupied by BLACK pieces
         final Set<BoardPosition> boardPositions = board.getBoardPositionsByPieceColor(Color.BLACK);
 

@@ -59,6 +59,7 @@
         <!-- Plugins -->
         <version.plugin.maven.shade>3.0.0</version.plugin.maven.shade>
         <version.plugin.javadoc>2.10.4</version.plugin.javadoc>
+        <version.plugin.maven.compiler>3.7.0</version.plugin.maven.compiler>
     </properties>
 
     <dependencies>
@@ -122,6 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.plugin.maven.compiler}</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>

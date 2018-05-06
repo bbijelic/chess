@@ -2,6 +2,7 @@ package com.github.bbijelic.chess.piece.move;
 
 import java.util.Set;
 
+import com.github.bbijelic.chess.board.setup.fen.FENBoardSetup;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,18 +22,18 @@ public class RookMoveHandlerTest {
     
     @Test
     public void whiteRookMoveHandlerInitialBoard() throws BoardException {
-        
-        // Initialize board setup
-        BoardSetup boardSetup = new NewMatchSetup();
+
+        // Initial board setup
+        final BoardSetup boardSetup = FENBoardSetup.of(FENBoardSetup.INITIAL_SETUP);
         
         // Initialize Board
-        Board board = new Board(boardSetup);
+        final Board board = new Board(boardSetup);
                 
         // Move handler instance
-        MoveHandlerInterface moveHandler = new MoveHandler();
+        final MoveHandlerInterface moveHandler = new MoveHandler();
         
         // Board position under test
-        BoardPosition bishopBoardPositionLeft = new BoardPosition(7, 0);
+        final BoardPosition bishopBoardPositionLeft = BoardPosition.of(7, 0);
         
         // Get playable board positions
         Set<BoardPosition> playableBoardPositions = 
@@ -42,7 +43,7 @@ public class RookMoveHandlerTest {
         assertEquals(0, playableBoardPositions.size());
         
         // Board position under test
-        BoardPosition bishopBoardPositionRight = new BoardPosition(7, 7);
+        final BoardPosition bishopBoardPositionRight = BoardPosition.of(7, 7);
         
         // Get playable board positions
         playableBoardPositions = 
@@ -55,18 +56,18 @@ public class RookMoveHandlerTest {
     
     @Test
     public void blackRookMoveHandlerInitialBoard() throws BoardException {
-        
-        // Initialize board setup
-        BoardSetup boardSetup = new NewMatchSetup();
+
+        // Initial board setup
+        final BoardSetup boardSetup = FENBoardSetup.of(FENBoardSetup.INITIAL_SETUP);
         
         // Initialize Board
-        Board board = new Board(boardSetup);
+        final Board board = new Board(boardSetup);
                 
         // Move handler instance
-        MoveHandlerInterface moveHandler = new MoveHandler();
+        final MoveHandlerInterface moveHandler = new MoveHandler();
         
         // Board position under test
-        BoardPosition bishopBoardPositionLeft = new BoardPosition(0, 0);
+        final BoardPosition bishopBoardPositionLeft = BoardPosition.of(0, 0);
         
         // Get playable board positions
         Set<BoardPosition> playableBoardPositions = 
@@ -76,7 +77,7 @@ public class RookMoveHandlerTest {
         assertEquals(0, playableBoardPositions.size());
         
         // Board position under test
-        BoardPosition bishopBoardPositionRight = new BoardPosition(0, 7);
+        final BoardPosition bishopBoardPositionRight = BoardPosition.of(0, 7);
         
         // Get playable board positions
         playableBoardPositions = 

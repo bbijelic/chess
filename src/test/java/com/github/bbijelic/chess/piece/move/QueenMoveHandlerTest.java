@@ -2,6 +2,7 @@ package com.github.bbijelic.chess.piece.move;
 
 import java.util.Set;
 
+import com.github.bbijelic.chess.board.setup.fen.FENBoardSetup;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,21 +22,21 @@ public class QueenMoveHandlerTest {
     
     @Test
     public void whiteQueenMoveHandlerInitialBoard() throws BoardException {
-        
-        // Initialize board setup
-        BoardSetup boardSetup = new NewMatchSetup();
+
+        // Initial board setup
+        final BoardSetup boardSetup = FENBoardSetup.of(FENBoardSetup.INITIAL_SETUP);
         
         // Initialize Board
-        Board board = new Board(boardSetup);
+        final Board board = new Board(boardSetup);
                 
         // Move handler instance
-        MoveHandlerInterface moveHandler = new MoveHandler();
+        final MoveHandlerInterface moveHandler = new MoveHandler();
         
         // Board position under test
-        BoardPosition bishopBoardPositionLeft = new BoardPosition(7, 3);
+        final BoardPosition bishopBoardPositionLeft = BoardPosition.of(7, 3);
         
         // Get playable board positions
-        Set<BoardPosition> playableBoardPositions = 
+        final Set<BoardPosition> playableBoardPositions =
             moveHandler.getPlayableBoardPositions(bishopBoardPositionLeft, board);
         
         // Assert position and size
@@ -45,21 +46,21 @@ public class QueenMoveHandlerTest {
     
     @Test
     public void blackQueenMoveHandlerInitialBoard() throws BoardException {
-        
-        // Initialize board setup
-        BoardSetup boardSetup = new NewMatchSetup();
+
+        // Initial board setup
+        final BoardSetup boardSetup = FENBoardSetup.of(FENBoardSetup.INITIAL_SETUP);
         
         // Initialize Board
-        Board board = new Board(boardSetup);
+        final Board board = new Board(boardSetup);
                 
         // Move handler instance
-        MoveHandlerInterface moveHandler = new MoveHandler();
+        final MoveHandlerInterface moveHandler = new MoveHandler();
         
         // Board position under test
-        BoardPosition bishopBoardPositionLeft = new BoardPosition(0, 3);
+        final BoardPosition bishopBoardPositionLeft = BoardPosition.of(0, 3);
         
         // Get playable board positions
-        Set<BoardPosition> playableBoardPositions = 
+        final Set<BoardPosition> playableBoardPositions =
             moveHandler.getPlayableBoardPositions(bishopBoardPositionLeft, board);
         
         // Assert position and size

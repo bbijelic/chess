@@ -23,7 +23,7 @@ public class MatchTest {
     public void testNewMatch(){
         
         // Initialize players
-        Set<Player> players = new HashSet<Player>();
+        final Set<Player> players = new HashSet<Player>();
         players.add(new Player("John", Color.WHITE));
         players.add(new Player("Jane", Color.BLACK));
         
@@ -37,16 +37,16 @@ public class MatchTest {
         }
         
         // Spectators
-        Set<Spectator> spectators = new HashSet<Spectator>();
+        final Set<Spectator> spectators = new HashSet<Spectator>();
         spectators.add(new Spectator("spectator1"));
         spectators.add(new Spectator("spectator2"));
         spectators.add(new Spectator("spectator3"));
         
         // Unique match id
-        String uuid = UUID.randomUUID().toString();
+        final String uuid = UUID.randomUUID().toString();
         
         // Initialize match
-        Match match = new Match(uuid, players, board, spectators);
+        final Match match = new Match(uuid, players, board, spectators);
         
         Assert.assertEquals(uuid, match.getMatchId());
         Assert.assertEquals(players, match.getPlayers());
