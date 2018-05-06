@@ -113,11 +113,6 @@ public class BoardPosition {
         return (rank >= 0 && rank <= 7 && file >= 0 && file <= 7) ? true : false;
     }
 
-    @Override
-    public int hashCode(){
-        return Objects.hash(rank, file);
-    }
-
     /**
      * File letters
      */
@@ -144,18 +139,23 @@ public class BoardPosition {
     @Override
     public boolean equals(Object obj){
         if (obj instanceof BoardPosition) {
-            BoardPosition other = (BoardPosition) obj;
-            if (this.rank == other.getRank() && this.file == other.getFile()) return true;
+            final BoardPosition other = (BoardPosition) obj;
+            if (this.rank == other.rank && this.file == other.file) return true;
         }
         return false;
     }
 
     @Override
+    public int hashCode(){
+        return Objects.hash(rank, file);
+    }
+
+    @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
-        builder.append("BoardPosition (");
-        builder.append(getSquareName());
-        builder.append(")[rank=");
+        builder.append("BoardPosition [");
+        builder.append(getSquareName().toUpperCase());
+        builder.append("][rank=");
         builder.append(rank);
         builder.append(", file=");
         builder.append(file);

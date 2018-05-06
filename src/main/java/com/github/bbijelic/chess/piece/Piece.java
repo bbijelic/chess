@@ -193,19 +193,32 @@ public class Piece {
             {
                 add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(-1, 0));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(-1, -1));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, 1));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(1, 1));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(1, 0));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(1, -1));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, -1));
+                }}, MoveType.KING_MOVE));
+                add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(-1, 1));
                 }}, MoveType.KING_MOVE));
 
                 add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, 3));
                 }}, MoveType.KING_SIDE_CASTILING));
-
                 add(new MoveVectorDirection(new ArrayList<MoveVector>() {{
                     add(new MoveVector(0, -4));
                 }}, MoveType.QUEEN_SIDE_CASTLING));

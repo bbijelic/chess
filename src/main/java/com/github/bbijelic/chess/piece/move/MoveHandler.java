@@ -5,6 +5,7 @@ import com.github.bbijelic.chess.board.BoardPosition;
 import com.github.bbijelic.chess.board.exception.BoardException;
 import com.github.bbijelic.chess.core.Color;
 import com.github.bbijelic.chess.piece.Piece;
+import com.github.bbijelic.chess.piece.PieceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public class MoveHandler implements MoveHandlerInterface {
     @Override
     public Set<BoardPosition> getPlayableBoardPositions(
             final BoardPosition boardPosition,
-            final Board board) {
+            final Board board){
 
         LOGGER.debug("ENTER: getPlayableBoardPositions(); boardPosition={}, board={}", boardPosition, board);
 
@@ -72,23 +73,31 @@ public class MoveHandler implements MoveHandlerInterface {
     private Set<BoardPosition> handlePiece(
             final BoardPosition boardPosition,
             final Board board,
-            final Piece piece) {
+            final Piece piece){
         LOGGER.debug("ENTER: handlePiece()");
 
         // Initialize playable positions set
         final Set<BoardPosition> playablePositions = new HashSet<>();
 
-        for (MoveVectorDirection moveVectorDirection : Piece.getMoveVectors(piece.getPieceType())) {
+        if (piece.getPieceType().equals(PieceType.KING)) {
 
-            // Normal move type
-            if (moveVectorDirection.getMoveType().equals(MoveType.NORMAL)) {
-                playablePositions.addAll(handleNormalMoveType(
-                        board, boardPosition, piece, moveVectorDirection.getMoveVectors()));
+            // handle the king piece differently
+            // King's playable positions depend on opponents possible moves
+            // King cant move to positions under attack
+            playablePositions.addAll(handleKingPiece(boardPosition, board, piece));
 
-            } else if (moveVectorDirection.getMoveType().equals(MoveType.KING_MOVE)) {
-                playablePositions.addAll(handleKingMoveType(
-                        board, boardPosition, piece, moveVectorDirection.getMoveVectors()));
+        } else {
+
+            for (MoveVectorDirection moveVectorDirection : Piece.getMoveVectors(piece.getPieceType())) {
+
+                // Normal move type
+                if (moveVectorDirection.getMoveType().equals(MoveType.NORMAL)) {
+                    playablePositions.addAll(handleNormalMoveType(
+                            board, boardPosition, piece, moveVectorDirection.getMoveVectors()));
+
+                }
             }
+
         }
 
         LOGGER.debug("LEAVE: handlePiece(); returning: {}",
@@ -97,53 +106,49 @@ public class MoveHandler implements MoveHandlerInterface {
     }
 
     /**
-     * Handles king move type.
-     * <p></p>
-     * <p>King move type is normal move type</p>
-     * <p>- minus opponents playable positions (for all opponents pieces on the board)</p>
+     * Handles king piece explicitly
      *
+     * @param boardPosition the board position
      * @param board         the board
-     * @param boardPosition the board position under evaluation
-     * @param piece         the piece on the board position
-     * @param moveVectors   the move vectors for the piece
-     * @return the playable move board positions
+     * @param piece         the piece (allways a king piece)
+     * @return the playable positions by t
      */
-    private Set<BoardPosition> handleKingMoveType(
-            final Board board,
+    private Set<BoardPosition> handleKingPiece(
             final BoardPosition boardPosition,
-            final Piece piece,
-            final List<MoveVector> moveVectors) {
-
-        LOGGER.debug("ENTER: handleKingMoveType()");
+            final Board board,
+            final Piece piece){
 
         // Initialize playable positions set
         final Set<BoardPosition> playablePositions = new HashSet<>();
 
-        // Handle moves as normal moves
-        playablePositions.addAll(handleNormalMoveType(board, boardPosition, piece, moveVectors));
-
-        if(recursion) return playablePositions;
-
-        // Figure out opponents color
-        Color opponentsColor = Color.WHITE;
-        if (piece.getColor().equals(Color.WHITE)) opponentsColor = Color.BLACK;
-
-        recursion = true;
-
-        // Get all board positions occupied by opponents pieces
-        board.getBoardPositionsByPieceColor(opponentsColor).forEach(opponentsBoardPosition -> {
-
-            // Get playable positions by opponents pieces
-            getPlayableBoardPositions(opponentsBoardPosition, board).forEach(opponentsPlayablePosition -> {
-                // Remove opponents playable position
-                if (playablePositions.contains(opponentsPlayablePosition)) {
-                    playablePositions.remove(opponentsPlayablePosition);
-                }
-            });
+        // Iterate all move vectors and collect playable positions
+        Piece.getMoveVectors(piece.getPieceType()).forEach(moveVectorDirection -> {
+            if (moveVectorDirection.getMoveType().equals(MoveType.KING_MOVE)) {
+                playablePositions.addAll(handleNormalMoveType(
+                        board, boardPosition, piece, moveVectorDirection.getMoveVectors()));
+            }
         });
 
-        LOGGER.debug("LEAVE: handleKingMoveType(); returning: {}",
-                playablePositions.toString());
+        if (recursion) return playablePositions;
+        recursion = true;
+
+        // Get opponents board positions
+        // Figure out opponents color
+        final Color opponentsColor = (piece.getColor().equals(Color.WHITE)) ? Color.BLACK : Color.WHITE;
+
+        // Get board positions occupied by opponent
+        final Set<BoardPosition> opponentsBoardPositions = board.getBoardPositionsByPieceColor(opponentsColor);
+
+        // Set of opponents playable positions
+        final Set<BoardPosition> opponentsPlayablePositions = new HashSet<>();
+
+        // Iterate all opponents board positions and get all playable positions by opponent
+        opponentsBoardPositions.forEach(opponentsBoardPosition -> {
+            opponentsPlayablePositions.addAll(getPlayableBoardPositions(opponentsBoardPosition, board));
+        });
+
+        // Remove all opponent playable positions from playable positions of a king
+        playablePositions.removeAll(opponentsPlayablePositions);
 
         return playablePositions;
     }
@@ -161,7 +166,7 @@ public class MoveHandler implements MoveHandlerInterface {
             final Board board,
             final BoardPosition boardPosition,
             final Piece piece,
-            final List<MoveVector> moveVectors) {
+            final List<MoveVector> moveVectors){
 
         LOGGER.debug("ENTER: handleNormalMoveType()");
 
