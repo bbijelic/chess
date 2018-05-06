@@ -18,7 +18,8 @@ public class SquareTest {
     @Test
     public void testSingleParamConstructor() {
         // Initialize square with color only
-        Square square = new Square(Color.BLACK);
+        final Square square = new Square(Color.BLACK);
+
         assertEquals(Color.BLACK, square.getColor());
         assertFalse(square.getPiece().isPresent());
     }
@@ -26,7 +27,8 @@ public class SquareTest {
     @Test
     public void testTwoParamConstructor() {
         // Initialize square with color and a piece
-        Square square = new Square(Color.WHITE, new Piece(PieceType.PAWN, Color.WHITE));
+        final Square square = new Square(Color.WHITE, new Piece(PieceType.PAWN, Color.WHITE));
+
         assertEquals(Color.WHITE, square.getColor());
         assertTrue(square.getPiece().isPresent());
     }

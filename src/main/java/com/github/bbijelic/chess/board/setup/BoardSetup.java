@@ -6,7 +6,13 @@ import com.github.bbijelic.chess.board.BoardPosition;
 import com.github.bbijelic.chess.piece.Piece;
 
 public interface BoardSetup {
-    
-    Map<BoardPosition, Piece> setup();
-    
+
+    /**
+     * Setup method
+     *
+     * @return the map containing board setup
+     * @throws BoardSetupException
+     */
+    Map<BoardPosition, Piece> setup() throws BoardSetupException;
+
 }

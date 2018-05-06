@@ -5,10 +5,7 @@ import com.github.bbijelic.chess.piece.move.MoveType;
 import com.github.bbijelic.chess.piece.move.MoveVector;
 import com.github.bbijelic.chess.piece.move.MoveVectorDirection;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Piece
@@ -22,7 +19,7 @@ public class Piece {
      */
     private static final Map<PieceType, List<MoveVectorDirection>> MOVE_VECTORS;
 
-    static {
+    static{
 
         // Move vectors map initialization
         MOVE_VECTORS = new HashMap<>();
@@ -231,7 +228,7 @@ public class Piece {
      * @param pieceType the piece type
      * @return the move vectors for the given piece type
      */
-    public static List<MoveVectorDirection> getMoveVectors(final PieceType pieceType) {
+    public static List<MoveVectorDirection> getMoveVectors(final PieceType pieceType){
         return MOVE_VECTORS.get(pieceType);
     }
 
@@ -241,7 +238,7 @@ public class Piece {
      * @param pieceType the piece type
      * @param color     the piece color
      */
-    public Piece(final PieceType pieceType, Color color) {
+    public Piece(final PieceType pieceType, Color color){
         this.pieceType = pieceType;
         this.color = color;
     }
@@ -256,7 +253,7 @@ public class Piece {
      *
      * @return the color
      */
-    public Color getColor() {
+    public Color getColor(){
         return color;
     }
 
@@ -270,12 +267,27 @@ public class Piece {
      *
      * @return the piece type
      */
-    public PieceType getPieceType() {
+    public PieceType getPieceType(){
         return pieceType;
     }
 
     @Override
-    public String toString() {
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return color == piece.color &&
+                pieceType == piece.pieceType;
+    }
+
+    @Override
+    public int hashCode(){
+
+        return Objects.hash(color, pieceType);
+    }
+
+    @Override
+    public String toString(){
         final StringBuffer sb = new StringBuffer("Piece{");
         sb.append("color=").append(color);
         sb.append(", pieceType=").append(pieceType);
