@@ -11,7 +11,7 @@ public interface BoardSetup {
      * Setup method
      *
      * @return the map containing board setup
-     * @throws BoardSetupException
+     * @throws BoardSetupException the board setup exception
      */
     Map<BoardPosition, Piece> setup() throws BoardSetupException;
 

@@ -28,7 +28,7 @@ public class Board {
      * Constructor
      *
      * @param boardSetup the board setup
-     * @throws BoardException
+     * @throws BoardException the board exception
      */
     public Board(BoardSetup boardSetup) throws BoardException{
         // Initializing the board
@@ -82,7 +82,7 @@ public class Board {
      * @param rank the board rank
      * @param file the board file
      * @return Square the square
-     * @throws BoardException
+     * @throws BoardException the board exception
      */
     public Square getSquare(final int rank, final int file) throws BoardException{
         return getSquare(new BoardPosition(rank, file));
@@ -93,7 +93,7 @@ public class Board {
      *
      * @param boardPosition the board rank
      * @return Square the square
-     * @throws BoardException
+     * @throws BoardException the board exception
      */
     public Square getSquare(BoardPosition boardPosition) throws BoardException{
         // Return the square on the position

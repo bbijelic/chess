@@ -77,4 +77,16 @@ public class FENBoardSetupTest {
         Assert.assertEquals(new Piece(PieceType.PAWN, Color.BLACK), map.get(BoardPosition.of("b2")));
         Assert.assertEquals(new Piece(PieceType.KNIGHT, Color.BLACK), map.get(BoardPosition.of("d2")));
     }
+
+    @Test
+    public void setup4() throws BoardSetupException{
+
+        // Setup the map
+        final Map<BoardPosition, Piece> map = new FENBoardSetup("8/8/8/8/8/2k5/3PK3/8 w - - 0 1").setup();
+
+        // Assert pieces
+        Assert.assertEquals(new Piece(PieceType.KING, Color.BLACK), map.get(BoardPosition.of("c3")));
+        Assert.assertEquals(new Piece(PieceType.KING, Color.WHITE), map.get(BoardPosition.of("e2")));
+        Assert.assertEquals(new Piece(PieceType.PAWN, Color.WHITE), map.get(BoardPosition.of("d2")));
+    }
 }

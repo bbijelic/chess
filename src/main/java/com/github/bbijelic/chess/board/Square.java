@@ -63,7 +63,7 @@ public class Square {
     /**
      * Piece setter
      * 
-     * @param the piece
+     * @param piece the piece
      */
     public void setPiece(Piece piece) {
         this.piece = Optional.of(piece);
