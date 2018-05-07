@@ -5,7 +5,7 @@
     <groupId>com.github.bbijelic</groupId>
     <artifactId>chess</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <licenses>
         <license>
@@ -85,6 +85,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>chess-core</module>
+        <module>chess-service</module>
+        <module>chess-client</module>
+    </modules>
 
     <build>
         <plugins>
